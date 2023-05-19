@@ -71,6 +71,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
 
+    //compose
+    implementation "androidx.navigation:navigation-compose:$compose_version"
+
+    // Coil
+    implementation("io.coil-kt:coil-compose:$coil_version")
+
     implementation project(path: ':core:domain')
     implementation project(path: ':core:data')
 }

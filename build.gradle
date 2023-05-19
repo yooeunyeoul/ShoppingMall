@@ -13,6 +13,8 @@ buildscript {
         java_version = JavaVersion.VERSION_17
         jvm_target_version = '17'
         lifecycle_version = "2.6.1"
+        compose_version = "2.5.3"
+        coil_version = "2.2.2"
     }
 }
 plugins {
