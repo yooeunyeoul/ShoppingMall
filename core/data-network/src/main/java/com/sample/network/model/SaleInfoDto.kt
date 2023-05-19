@@ -1,6 +1,6 @@
 package com.sample.network.model
 
-data class SaleInfo(
+data class SaleInfoDto(
     val consumer_price: Int,
     val coupon_sale_rate: Int,
     val is_coupon: Boolean,

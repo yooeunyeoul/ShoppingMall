@@ -8,5 +8,5 @@ data class CategoryDto (
     val item_no: Int,
     val review_average_point: Double,
     val review_count: Int,
-    val sale_info: SaleInfo
+    val sale_info: SaleInfoDto
 )
