@@ -12,6 +12,7 @@ buildscript {
         paging_version = "1.0.0-alpha18"
         java_version = JavaVersion.VERSION_17
         jvm_target_version = '17'
+        lifecycle_version = "2.6.1"
     }
 }
 plugins {
