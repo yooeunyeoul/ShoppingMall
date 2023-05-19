@@ -18,7 +18,7 @@ interface ShoppingApi {
         @Path("pageNum") pageNum: Int
     ): CategoryResponse
 
-    @GET("banner_list/feed_list/page{page}.json")
+    @GET("feed_list/page{page}.json")
     suspend fun getFeedList(
         @Path("pageNum") pageNum: Int
     ): FeedResponse
