@@ -10,17 +10,17 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
+
+private const val baseUrl = "https://media.29cm.co.kr/codingtest/"
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
     @Provides
-    @Named("httpClient")
     @Singleton
-    fun provideHttpClient(@Named("interceptor") interceptor: Interceptor): OkHttpClient {
+    fun provideHttpClient(interceptor: Interceptor): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .addInterceptor(HttpLoggingInterceptor().apply {
@@ -32,9 +32,7 @@ object NetworkModule {
     }
 
 
-
     @Provides
-    @Named("interceptor")
     @Singleton
     fun provideInterceptor(): Interceptor {
         return Interceptor { chain ->
@@ -48,11 +46,10 @@ object NetworkModule {
 
 
     @Provides
-    @Named("retrofit")
     @Singleton
-    fun provideRetrofitInstance(@Named("httpClient") okHttpClient: OkHttpClient): Retrofit {
+    fun provideRetrofitInstance(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
