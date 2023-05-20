@@ -33,11 +33,14 @@ android {
 
 dependencies {
 
+    implementation project(path: ':core:domain')
+    implementation project(path: ':core:data-network')
+    implementation project(path: ':core:data-localdata')
+
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
-    testImplementation "junit:junit:$junit_version"
 
-    implementation project(path: ':core:domain')
+    testImplementation "junit:junit:$junit_version"
 
     //ROOM DB
     implementation "androidx.room:room-runtime:$room_version"
