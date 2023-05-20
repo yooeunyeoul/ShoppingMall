@@ -1,7 +1,7 @@
 package com.sample.network.base
 
-data class BaseListResponse<T>(
-    val error_code: Any?,
+data class CommonListResponse<T>(
+    val error_code: Int?,
     val list: List<T>,
     val result: String
 )
