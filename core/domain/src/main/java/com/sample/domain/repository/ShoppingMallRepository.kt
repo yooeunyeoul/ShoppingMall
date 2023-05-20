@@ -7,7 +7,7 @@ import com.sample.domain.model.Feed
 import kotlinx.coroutines.flow.Flow
 
 interface ShoppingMallRepository {
-    fun getBannerList(): Flow<List<Banner>>
+    fun getBannerList(): List<Banner>
     fun getProductList(): Flow<PagingData<Category>>
     fun getFeedList(): Flow<PagingData<Feed>>
 }
