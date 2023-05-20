@@ -1,5 +1,6 @@
 package com.sample.network.di
 
+import com.sample.network.remote.ShoppingApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -56,10 +57,10 @@ object NetworkModule {
     }
 
 
-//    @Provides
-//    @Singleton
-//    fun provideApi(@Named("retrofit") retrofit: Retrofit): SampleApi {
-//        return retrofit.create(NaverApi::class.java)
-//    }
+    @Provides
+    @Singleton
+    fun provideApi(retrofit: Retrofit): ShoppingApi {
+        return retrofit.create(ShoppingApi::class.java)
+    }
 
 }
