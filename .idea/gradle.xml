@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/data-localdata" />
             <option value="$PROJECT_DIR$/core/data-network" />
+            <option value="$PROJECT_DIR$/core/data-paging" />
             <option value="$PROJECT_DIR$/core/domain" />
           </set>
         </option>
