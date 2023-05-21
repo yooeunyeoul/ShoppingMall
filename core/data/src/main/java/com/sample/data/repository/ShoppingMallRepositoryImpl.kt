@@ -14,7 +14,7 @@ class ShoppingMallRepositoryImpl(private val dataSource: ShoppingMallRemoteDataS
         return dataSource.getBannerResponse()
     }
 
-    override fun getProductList(): Flow<PagingData<Category>> {
+    override fun getCategoryList(): Flow<PagingData<Category>> {
         TODO("Not yet implemented")
     }
 

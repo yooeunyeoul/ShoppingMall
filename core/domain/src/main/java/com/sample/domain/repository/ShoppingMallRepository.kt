@@ -9,6 +9,6 @@ import kotlinx.coroutines.flow.Flow
 
 interface ShoppingMallRepository {
     fun getBannerList(): Flow<Resource<List<Banner>>>
-    fun getProductList(): Flow<PagingData<Category>>
+    fun getCategoryList(): Flow<PagingData<Category>>
     fun getFeedList(): Flow<PagingData<Feed>>
 }
