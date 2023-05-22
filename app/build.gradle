@@ -87,7 +87,13 @@ dependencies {
     implementation "com.google.accompanist:accompanist-pager:0.25.0"
     implementation "com.google.accompanist:accompanist-pager-indicators:0.25.0"
 
+    // Paging 3.0
+    implementation "androidx.paging:paging-compose:$paging_version"
+
+
+
     implementation project(path: ':core:domain')
     implementation project(path: ':core:data')
     implementation project(path: ':core:data-network')
+    implementation project(path: ':core:data-paging')
 }
