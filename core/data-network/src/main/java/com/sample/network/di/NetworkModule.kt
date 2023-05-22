@@ -1,6 +1,7 @@
 package com.sample.network.di
 
 import com.sample.network.remote.ShoppingApi
+import com.sample.network.util.EnumConverterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -53,6 +54,7 @@ object NetworkModule {
             .baseUrl(baseUrl)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(EnumConverterFactory())
             .build()
     }
 
