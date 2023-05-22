@@ -55,4 +55,8 @@ dependencies {
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+
+    implementation project(path: ':core:data-localdata')
+    implementation project(path: ':core:data-network')
+    implementation project(path: ':core:domain')
 }
