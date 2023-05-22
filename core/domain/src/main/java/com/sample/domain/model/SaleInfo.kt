@@ -1,11 +1,11 @@
 package com.sample.domain.model
 
 data class SaleInfo(
-    val consumerPrice: Int,
-    val couponSaleRate: Int,
-    val isCoupon: Boolean,
-    val saleRate: Int,
-    val sellPrice: Int,
-    val totalSaleRate: Int,
-    val totalSellPrice: Int
+    val consumerPrice: Int=0,
+    val couponSaleRate: Int=0,
+    val isCoupon: Boolean= false,
+    val saleRate: Int=0,
+    val sellPrice: Int=0,
+    val totalSaleRate: Int=0,
+    val totalSellPrice: Int=0
 )
