@@ -15,7 +15,7 @@ object RemoteDataModule {
     @Provides
     fun provideImagesRemoteDataSource(
         api: ShoppingApi,
-        db: ShoppingMallDatabase
+        db: ShoppingMallDatabase,
     ): ShoppingMallRemoteDataSource =
         ShoppingMallRemoteDataSourceImpl(api, db)
 
