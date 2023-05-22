@@ -10,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 interface ImageDao {
 
     @Upsert
-    suspend fun upsertAll(images: List<BannerEntity>)
+    suspend fun upsertAll(images: List<CategoryEntity>)
 
-    @Query("SELECT * FROM banner_entity")
-    fun pagingSource(): PagingSource<Int, BannerEntity>
+    @Query("SELECT * FROM category_entity")
+    fun pagingSource(): PagingSource<Int, CategoryEntity>
 
     @Query("DELETE FROM banner_entity")
     suspend fun clearAll()
