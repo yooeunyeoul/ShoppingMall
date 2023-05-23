@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "image_remote_keys_entity")
 data class ImageRemoteKeysEntity(
     @PrimaryKey(autoGenerate = false)
-    val id: String,
+    val id: Int,
     val prevPage: Int?,
     val nextPage: Int?,
 )
