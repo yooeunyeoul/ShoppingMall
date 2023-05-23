@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalPagerApi::class)
+@file:OptIn(ExperimentalPagerApi::class, ExperimentalPagerApi::class)
 
 package com.sample.shoppingmall.presentation.shoppingHome
 
@@ -6,14 +6,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,19 +31,20 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.sample.domain.model.Category
-import com.sample.domain.model.Feed
 import com.sample.domain.util.Resource
+import com.sample.shoppingmall.presentation.shoppingHome.components.CategoryListLazyColumn
+import com.sample.shoppingmall.presentation.shoppingHome.components.FeedListLazyColumn
 import com.sample.shoppingmall.presentation.util.HomeTabType
 import kotlinx.coroutines.launch
 
@@ -53,11 +52,6 @@ import kotlinx.coroutines.launch
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     val bannerState by viewModel.bannerList.collectAsStateWithLifecycle()
-    val womenList = viewModel.womenList.collectAsLazyPagingItems()
-    val menList = viewModel.menList.collectAsLazyPagingItems()
-    val homeList = viewModel.homeList.collectAsLazyPagingItems()
-    val techList = viewModel.techList.collectAsLazyPagingItems()
-    val feedList = viewModel.feedList.collectAsLazyPagingItems()
 
     BoxWithConstraints {
         val screenHeight = maxHeight
@@ -116,7 +110,10 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             }) {
                                 Text(
                                     text = categoryType.name,
-                                    color = if (pagerState.currentPage == index) Color.Black else Color.LightGray
+                                    color = if (pagerState.currentPage == index) Color.Black else Color.LightGray,
+                                    modifier = Modifier.padding(vertical = 20.dp),
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 14.sp
                                 )
                             }
                         }
@@ -142,22 +139,27 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 ) { page: Int ->
                     when (page) {
                         HomeTabType.MEN.index -> {
-                            ListLazyColumn(menList)
+                            val menList = viewModel.menList.collectAsLazyPagingItems()
+                            CategoryListLazyColumn(menList)
                         }
 
                         HomeTabType.WOMEN.index -> {
-                            ListLazyColumn(womenList)
+                            val womenList = viewModel.womenList.collectAsLazyPagingItems()
+                            CategoryListLazyColumn(womenList)
                         }
 
                         HomeTabType.HOME.index -> {
-                            ListLazyColumn(homeList)
+                            val homeList = viewModel.homeList.collectAsLazyPagingItems()
+                            CategoryListLazyColumn(homeList)
                         }
 
                         HomeTabType.TECH.index -> {
-                            ListLazyColumn(techList)
+                            val techList = viewModel.techList.collectAsLazyPagingItems()
+                            CategoryListLazyColumn(techList)
                         }
 
                         HomeTabType.BESTFEED.index -> {
+                            val feedList = viewModel.feedList.collectAsLazyPagingItems()
                             FeedListLazyColumn(feedList)
                         }
                     }
@@ -168,48 +170,3 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 }
 
 
-@Composable
-fun ListLazyColumn(categoryItems: LazyPagingItems<Category>) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
-    ) {
-        items(categoryItems.itemCount) { index ->
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-//                            .data(bannerState.data?.get(page)?.imageUrl)
-                    .data(categoryItems[index]?.imageUrl)
-                    .crossfade(true).build(),
-                contentScale = ContentScale.FillWidth,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(400.dp)
-            )
-        }
-
-    }
-}
-
-@Composable
-fun FeedListLazyColumn(categoryItems: LazyPagingItems<Feed>) {
-    LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
-    ) {
-        items(categoryItems.itemCount) { index ->
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-//                            .data(bannerState.data?.get(page)?.imageUrl)
-                    .data(categoryItems[index]?.imageUrl)
-                    .crossfade(true).build(),
-                contentScale = ContentScale.FillWidth,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(400.dp)
-            )
-        }
-
-    }
-}
