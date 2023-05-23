@@ -78,7 +78,7 @@ class CategoryListRemoteMediator(
 
                     val keys = categoryList.map { ImageEntity ->
                         ImageRemoteKeysEntity(
-                            id = ImageEntity.imageUrl,
+                            id = ImageEntity.itemNo,
                             prevPage = prevPage,
                             nextPage = nextPage
                         )
