@@ -20,7 +20,7 @@ interface ShoppingApi {
         @Path("pageNum") pageNum: Int
     ): CommonPagingListResponse<CategoryDto>
 
-    @GET("feed_list/page{page}.json")
+    @GET("feed_list/page{pageNum}.json")
     suspend fun getFeedList(
         @Path("pageNum") pageNum: Int
     ): CommonPagingListResponse<FeedDto>
