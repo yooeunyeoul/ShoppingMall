@@ -1,8 +1,8 @@
 package com.sample.domain.model
 
 data class Feed(
-    val feedContents: String,
-    val feedNo: Int,
-    val feedTitle: String,
-    val imageUrl: String
+    val feedContents: String="",
+    val feedNo: Int=-1,
+    val feedTitle: String="",
+    val imageUrl: String=""
 )
