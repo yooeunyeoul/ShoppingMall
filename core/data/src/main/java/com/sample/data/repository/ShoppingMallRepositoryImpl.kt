@@ -20,6 +20,6 @@ class ShoppingMallRepositoryImpl(private val dataSource: ShoppingMallRemoteDataS
     }
 
     override fun getFeedList(): Flow<PagingData<Feed>> {
-        TODO("Not yet implemented")
+        return dataSource.getFeedList()
     }
 }

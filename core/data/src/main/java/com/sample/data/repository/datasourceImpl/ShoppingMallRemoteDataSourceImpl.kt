@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalPagingApi::class)
+@file:OptIn(ExperimentalPagingApi::class, ExperimentalPagingApi::class)
 
 package com.sample.data.repository.datasourceImpl
 
@@ -11,14 +11,17 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.sample.data.mappers.toBanner
+import com.sample.data.mappers.toFeed
 import com.sample.data.repository.datasource.ShoppingMallRemoteDataSource
 import com.sample.data_paging.CategoryListRemoteMediator
+import com.sample.data_paging.FeedListRemoteMediator
 import com.sample.domain.model.Banner
 import com.sample.domain.model.Category
 import com.sample.domain.model.Feed
 import com.sample.domain.response.NetworkResult
 import com.sample.domain.util.CategoryType
 import com.sample.domain.util.Resource
+import com.sample.localdata.local.FeedEntity
 import com.sample.localdata.local.ShoppingMallDatabase
 import com.sample.network.remote.ShoppingApi
 import com.sample.network.response.toNetworkResult
@@ -26,6 +29,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
 
+@OptIn(ExperimentalPagingApi::class)
 class ShoppingMallRemoteDataSourceImpl(
     private val api: ShoppingApi,
     private val db: ShoppingMallDatabase
@@ -74,7 +78,17 @@ class ShoppingMallRemoteDataSourceImpl(
     }
 
     override fun getFeedList(): Flow<PagingData<Feed>> {
-        TODO("Not yet implemented")
+        val pagingSourceFactory = { db.feedDao().pagingSource() }
+        return Pager(
+            config = PagingConfig(pageSize = 10),
+            remoteMediator = FeedListRemoteMediator(
+                api = api,
+                db = db
+            ),
+            pagingSourceFactory = pagingSourceFactory
+        ).flow.map { value: PagingData<FeedEntity> ->
+            value.map { feedEntity -> feedEntity.toFeed() }
+        }
     }
 
 }
