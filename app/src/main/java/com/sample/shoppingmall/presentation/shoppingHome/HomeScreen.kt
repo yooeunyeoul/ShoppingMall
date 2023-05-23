@@ -141,23 +141,23 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         })
                 ) { page: Int ->
                     when (page) {
-                        0 -> {
+                        HomeTabType.MEN.index -> {
                             ListLazyColumn(menList)
                         }
 
-                        1 -> {
+                        HomeTabType.WOMEN.index -> {
                             ListLazyColumn(womenList)
                         }
 
-                        2 -> {
+                        HomeTabType.HOME.index -> {
                             ListLazyColumn(homeList)
                         }
 
-                        3 -> {
+                        HomeTabType.TECH.index -> {
                             ListLazyColumn(techList)
                         }
 
-                        4 -> {
+                        HomeTabType.BESTFEED.index -> {
                             FeedListLazyColumn(feedList)
                         }
                     }
