@@ -44,6 +44,7 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.sample.domain.model.Category
+import com.sample.domain.model.Feed
 import com.sample.domain.util.Resource
 import com.sample.shoppingmall.presentation.util.HomeTabType
 import kotlinx.coroutines.launch
@@ -56,6 +57,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val menList = viewModel.menList.collectAsLazyPagingItems()
     val homeList = viewModel.homeList.collectAsLazyPagingItems()
     val techList = viewModel.techList.collectAsLazyPagingItems()
+    val feedList = viewModel.feedList.collectAsLazyPagingItems()
 
     BoxWithConstraints {
         val screenHeight = maxHeight
@@ -156,7 +158,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         }
 
                         4 -> {
-//                            ListLazyColumn(menList)
+                            FeedListLazyColumn(feedList)
                         }
                     }
                 }
@@ -168,6 +170,29 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
 @Composable
 fun ListLazyColumn(categoryItems: LazyPagingItems<Category>) {
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(2),
+        contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
+    ) {
+        items(categoryItems.itemCount) { index ->
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+//                            .data(bannerState.data?.get(page)?.imageUrl)
+                    .data(categoryItems[index]?.imageUrl)
+                    .crossfade(true).build(),
+                contentScale = ContentScale.FillWidth,
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(400.dp)
+            )
+        }
+
+    }
+}
+
+@Composable
+fun FeedListLazyColumn(categoryItems: LazyPagingItems<Feed>) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(horizontal = 16.dp, vertical = 16.dp)
