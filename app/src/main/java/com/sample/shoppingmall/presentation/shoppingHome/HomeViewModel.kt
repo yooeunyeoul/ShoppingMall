@@ -32,37 +32,37 @@ class HomeViewModel @Inject constructor(
 
     val womenList =
         categoryUseCase(categoryType = CategoryType.WOMEN).flowOn(Dispatchers.IO)
-            .cachedIn(viewModelScope).stateIn(
+            .stateIn(
                 viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000),
                 initialValue = PagingData.empty()
-            )
+            ).cachedIn(viewModelScope)
 
     val menList =
-        categoryUseCase(categoryType = CategoryType.MEN).flowOn(Dispatchers.IO).cachedIn(viewModelScope).stateIn(
+        categoryUseCase(categoryType = CategoryType.MEN).flowOn(Dispatchers.IO).stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = PagingData.empty()
-        )
+        ).cachedIn(viewModelScope)
     val techList =
-        categoryUseCase(categoryType = CategoryType.TECH).flowOn(Dispatchers.IO).cachedIn(viewModelScope).stateIn(
+        categoryUseCase(categoryType = CategoryType.TECH).flowOn(Dispatchers.IO).stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = PagingData.empty()
-        )
+        ).cachedIn(viewModelScope)
 
     val homeList =
-        categoryUseCase(categoryType = CategoryType.HOME).flowOn(Dispatchers.IO).cachedIn(viewModelScope).stateIn(
+        categoryUseCase(categoryType = CategoryType.HOME).flowOn(Dispatchers.IO).stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = PagingData.empty()
-        )
+        ).cachedIn(viewModelScope)
 
     val feedList =
-        feedUseCase().flowOn(Dispatchers.IO).cachedIn(viewModelScope).stateIn(
+        feedUseCase().flowOn(Dispatchers.IO).stateIn(
             viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = PagingData.empty()
-        )
+        ).cachedIn(viewModelScope)
 
 }
