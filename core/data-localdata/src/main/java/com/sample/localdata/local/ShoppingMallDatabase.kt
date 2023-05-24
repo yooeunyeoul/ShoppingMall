@@ -9,7 +9,9 @@ import androidx.room.RoomDatabase
     version = 1
 )
 abstract class ShoppingMallDatabase : RoomDatabase() {
-    abstract fun imageDao(): ImageDao
+    abstract fun bannerDao(): BannerDao
+
+    abstract fun categoryDao(): CategoryDao
 
     abstract fun feedDao(): FeedDao
 
