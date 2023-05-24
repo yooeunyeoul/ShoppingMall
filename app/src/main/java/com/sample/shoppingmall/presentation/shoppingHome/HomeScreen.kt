@@ -2,6 +2,7 @@
 
 package com.sample.shoppingmall.presentation.shoppingHome
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
@@ -36,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -52,6 +54,7 @@ import kotlinx.coroutines.launch
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     val bannerState by viewModel.bannerList.collectAsStateWithLifecycle()
+    val context = LocalContext.current
 
     BoxWithConstraints {
         val screenHeight = maxHeight
@@ -69,7 +72,22 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
             ) {
                 when (bannerState) {
                     is Resource.Error -> {
+                        Toast.makeText(
+                            context,
+                            "Error: " + bannerState.message,
+                            Toast.LENGTH_LONG
+                        ).show()
 
+                        HorizontalPager(count = bannerState.data?.count() ?: 0) { page ->
+                            AsyncImage(
+                                model = ImageRequest.Builder(LocalContext.current)
+                                    .data(bannerState.data?.get(page)?.imageUrl)
+                                    .crossfade(true).build(),
+                                contentScale = ContentScale.FillWidth,
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxWidth()
+                            )
+                        }
                     }
 
                     is Resource.Loading -> {
@@ -81,7 +99,6 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             AsyncImage(
                                 model = ImageRequest.Builder(LocalContext.current)
                                     .data(bannerState.data?.get(page)?.imageUrl)
-//                                    .data(R.drawable.sample)
                                     .crossfade(true).build(),
                                 contentScale = ContentScale.FillWidth,
                                 contentDescription = null,
