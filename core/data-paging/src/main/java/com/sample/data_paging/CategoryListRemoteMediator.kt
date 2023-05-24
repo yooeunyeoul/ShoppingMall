@@ -22,7 +22,7 @@ class CategoryListRemoteMediator(
     private val categoryType: CategoryType
 ) : RemoteMediator<Int, CategoryEntity>() {
 
-    private val imageDao = db.imageDao()
+    private val categoryDao = db.categoryDao()
     private val imageRemoteKeysDao = db.imageRemoteKeysDao()
 
     override suspend fun load(
@@ -70,7 +70,7 @@ class CategoryListRemoteMediator(
 
                 db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
-                        imageDao.clearAll()
+                        categoryDao.clearAll()
                         imageRemoteKeysDao.deleteAllImageRemoteKeys()
                     }
                     val nextPage = pageNum + 1
@@ -84,7 +84,7 @@ class CategoryListRemoteMediator(
                         )
                     }
                     imageRemoteKeysDao.addAllImageRemoteKeys(imageRemoteKeys = keys)
-                    imageDao.upsertAll(images = categoryList)
+                    categoryDao.upsertAll(images = categoryList)
                 }
             }
 
