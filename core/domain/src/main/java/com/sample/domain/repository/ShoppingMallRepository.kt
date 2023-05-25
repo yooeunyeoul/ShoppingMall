@@ -12,4 +12,5 @@ interface ShoppingMallRepository {
     fun getBannerList(): Flow<Resource<List<Banner>>>
     fun getCategoryList(categoryType: CategoryType): Flow<PagingData<Category>>
     fun getFeedList(): Flow<PagingData<Feed>>
+    suspend fun updateCategoryFavorite(category: Category)
 }
