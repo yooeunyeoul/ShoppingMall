@@ -9,7 +9,7 @@ import androidx.room.withTransaction
 import com.sample.data_paging.mappers.toFeedEntity
 import com.sample.domain.response.NetworkResult
 import com.sample.localdata.local.FeedEntity
-import com.sample.localdata.local.ImageRemoteKeysEntity
+import com.sample.localdata.local.FeedRemoteKeysEntity
 import com.sample.localdata.local.ShoppingMallDatabase
 import com.sample.network.remote.ShoppingApi
 import com.sample.network.response.toNetworkResult
@@ -21,7 +21,7 @@ class FeedListRemoteMediator(
 ) : RemoteMediator<Int, FeedEntity>() {
 
     private val feedDao = db.feedDao()
-    private val imageRemoteKeysDao = db.imageRemoteKeysDao()
+    private val feedRemoteKeysDao = db.feedRemoteKeysDao()
 
     override suspend fun load(
         loadType: LoadType,
@@ -40,7 +40,7 @@ class FeedListRemoteMediator(
 
                 LoadType.APPEND -> {
                     val imageRemoteKeysEntity = db.withTransaction {
-                        imageRemoteKeysDao.getImageRemoteKey()
+                        feedRemoteKeysDao.getImageRemoteKey()
                     }
                     if (imageRemoteKeysEntity?.nextPage == null) {
                         return MediatorResult.Success(endOfPaginationReached = true)
@@ -69,19 +69,19 @@ class FeedListRemoteMediator(
                 db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
                         feedDao.clearAll()
-                        imageRemoteKeysDao.deleteAllImageRemoteKeys()
+                        feedRemoteKeysDao.deleteAllImageRemoteKeys()
                     }
                     val nextPage = pageNum + 1
                     val prevPage: Int? = if (pageNum <= 1) null else pageNum
 
                     val keys = feedList.map { feedEntity ->
-                        ImageRemoteKeysEntity(
+                        FeedRemoteKeysEntity(
                             id = feedEntity.feedNo,
                             prevPage = prevPage,
                             nextPage = nextPage
                         )
                     }
-                    imageRemoteKeysDao.addAllImageRemoteKeys(imageRemoteKeys = keys)
+                    feedRemoteKeysDao.addAllImageRemoteKeys(imageRemoteKeys = keys)
                     feedDao.upsertAll(images = feedList)
                 }
             }
