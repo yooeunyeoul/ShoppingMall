@@ -1,15 +1,17 @@
 plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
+    id "dagger.hilt.android.plugin"
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.sample.common_utils'
-    compileSdk 33
+    compileSdk compile_sdk_version
 
     defaultConfig {
-        minSdk 24
-        targetSdk 33
+        minSdk min_sdk_version
+        targetSdk target_sdk_version
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -22,11 +24,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility java_version
+        targetCompatibility java_version
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = jvm_target_version
     }
 }
 
@@ -38,4 +40,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    //hilt
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 }
