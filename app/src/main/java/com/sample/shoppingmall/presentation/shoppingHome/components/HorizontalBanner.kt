@@ -2,7 +2,6 @@
 
 package com.sample.shoppingmall.presentation.shoppingHome.components
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -35,7 +34,6 @@ fun horizontalBanner(pagerState: PagerState, banners: List<Banner>) {
         ) { page ->
             if (banners.isNotEmpty()) {
                 val currentPage = page % banners.count()
-                Log.e("currentPage", currentPage.toString())
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(banners[currentPage].imageUrl)
