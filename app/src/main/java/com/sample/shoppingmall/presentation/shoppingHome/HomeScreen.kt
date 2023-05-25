@@ -37,7 +37,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -59,6 +58,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     BoxWithConstraints {
         val screenHeight = maxHeight
         val scrollState = rememberScrollState()
+
 
         Column(
             Modifier
@@ -156,23 +156,45 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 ) { page: Int ->
                     when (page) {
                         HomeTabType.MEN.index -> {
+
                             val menList = viewModel.menList.collectAsLazyPagingItems()
-                            CategoryListLazyColumn(menList)
+                            CategoryListLazyColumn(menList, onHeartClick = { category ->
+                                if (category.isFavorite) {
+                                    viewModel.onEvent(ShoppingHomeEvents.DeleteFavorite(category))
+                                } else {
+                                    viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category))
+                                }
+
+                            })
                         }
 
                         HomeTabType.WOMEN.index -> {
                             val womenList = viewModel.womenList.collectAsLazyPagingItems()
-                            CategoryListLazyColumn(womenList)
+                            CategoryListLazyColumn(womenList, onHeartClick = { category ->
+                                if (category.isFavorite) {
+                                    viewModel.onEvent(ShoppingHomeEvents.DeleteFavorite(category))
+                                } else {
+                                    viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category))
+                                }
+                            })
                         }
 
                         HomeTabType.HOME.index -> {
                             val homeList = viewModel.homeList.collectAsLazyPagingItems()
-                            CategoryListLazyColumn(homeList)
+                            CategoryListLazyColumn(homeList, onHeartClick = { category ->
+                                if (category.isFavorite) {
+                                    viewModel.onEvent(ShoppingHomeEvents.DeleteFavorite(category))
+                                } else {
+                                    viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category))
+                                }
+                            })
                         }
 
                         HomeTabType.TECH.index -> {
                             val techList = viewModel.techList.collectAsLazyPagingItems()
-                            CategoryListLazyColumn(techList)
+                            CategoryListLazyColumn(techList, onHeartClick = { category ->
+                                viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category.copy(isFavorite = !category.isFavorite)))
+                            })
                         }
 
                         HomeTabType.BESTFEED.index -> {

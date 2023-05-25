@@ -7,13 +7,17 @@ import androidx.paging.compose.LazyPagingItems
 import com.sample.domain.model.Category
 
 @Composable
-fun CategoryListLazyColumn(categoryItems: LazyPagingItems<Category>) {
+fun CategoryListLazyColumn(categoryItems: LazyPagingItems<Category>,onHeartClick: (Category)->Unit) {
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
     ) {
         items(categoryItems.itemCount) { index ->
-            categoryItems[index]?.let { category -> CategoryItem(category) }
+            categoryItems[index]?.let { category ->
+                CategoryItem(category, onItemClick = {category->
+                    onHeartClick(category)
+                })
+            }
         }
     }
 }

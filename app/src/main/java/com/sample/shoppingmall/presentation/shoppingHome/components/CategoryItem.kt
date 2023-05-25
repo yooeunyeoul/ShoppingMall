@@ -26,7 +26,7 @@ import com.sample.shoppingmall.R
 import com.sample.shoppingmall.presentation.components.CrossFadeImage
 
 @Composable
-fun CategoryItem(category: Category) {
+fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
     Column(
         Modifier
             .fillMaxWidth()
@@ -49,7 +49,9 @@ fun CategoryItem(category: Category) {
                     fontSize = 14.sp
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                HeartIcon(category = category)
+                HeartIcon(category = category, onItemClick = {category->
+                    onItemClick(category)
+                })
             }
             Spacer(modifier = Modifier.height(4.dp))
 
@@ -107,5 +109,5 @@ fun CategoryItem(category: Category) {
 @Preview
 @Composable
 fun PreviewCategoryItem() {
-    CategoryItem(category = Category())
+    CategoryItem(category = Category()) {}
 }
