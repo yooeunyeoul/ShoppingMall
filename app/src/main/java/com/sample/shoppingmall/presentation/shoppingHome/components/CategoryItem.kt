@@ -1,5 +1,6 @@
 package com.sample.shoppingmall.presentation.shoppingHome.components
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -19,11 +20,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.sample.common_utils.utils.NumberComma
 import com.sample.domain.model.Category
+import com.sample.domain.model.SaleInfo
 import com.sample.shoppingmall.R
 import com.sample.shoppingmall.presentation.components.CrossFadeImage
+import com.sample.shoppingmall.presentation.components.dpToSp
 
 @Composable
 fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
@@ -41,32 +43,37 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
 
         Column(modifier = Modifier.padding(horizontal = 8.dp)) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
                     text = category.brandName,
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 14.sp
+                    fontSize = dpToSp(dp = 12.dp),
+                    modifier = Modifier.weight(1f),
                 )
-                Spacer(modifier = Modifier.weight(1f))
-                HeartIcon(category = category, onItemClick = {category->
+//                Spacer(modifier = Modifier.weight(1f))
+                HeartIcon(category = category, onItemClick = { category ->
                     onItemClick(category)
                 })
             }
             Spacer(modifier = Modifier.height(4.dp))
 
-            Text(text = category.itemName, color = Color.Black, fontSize = 14.sp)
+            Text(text = category.itemName, color = Color.Black, fontSize = dpToSp(dp = 14.dp))
 
             Spacer(modifier = Modifier.height(14.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(text = category.saleInfo.saleRate.toString() + "%", color = Color(0xFFEE6B42))
+                Text(
+                    text = category.saleInfo.saleRate.toString() + "%",
+                    color = Color(0xFFEE6B42),
+                    fontSize = dpToSp(dp = 16.dp)
+                )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
                     text = NumberComma.decimalFormat.format(category.saleInfo.consumerPrice),
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
+                    fontSize = dpToSp(dp = 16.dp)
                 )
             }
 
@@ -80,7 +87,8 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
                 )
                 Text(
                     text = NumberComma.decimalFormat.format(category.heartCount),
-                    color = Color.Black
+                    color = Color.Black,
+                    fontSize = dpToSp(dp = 12.dp)
                 )
                 Spacer(modifier = Modifier.width(5.dp))
                 Icon(
@@ -90,11 +98,13 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
                 )
                 Text(
                     text = category.reviewAveragePoint.toString(),
-                    color = Color.Black
+                    color = Color.Black,
+                    fontSize = dpToSp(dp = 12.dp)
                 )
                 Text(
                     text = "(${category.reviewCount})",
-                    color = Color.Black
+                    color = Color.Black,
+                    fontSize = dpToSp(dp = 12.dp)
                 )
             }
         }
@@ -109,5 +119,24 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
 @Preview
 @Composable
 fun PreviewCategoryItem() {
-    CategoryItem(category = Category()) {}
+    CategoryItem(
+        category = Category(
+            brandName = "브랜드 네임 Long Long Long LongLong LongLong LongLong LongLong LongLong Long",
+            heartCount = 1200,
+            imageUrl = "https://img.29cm.co.kr//next-product//2020//11//18//de8724db0618460d9dc7a9a99125f8e7_20201118144729.jpg",
+            itemName = "아이템 네임 Long LongLong LongLong LongLong LongLong LongLong LongLong LongLong Long",
+            reviewAveragePoint = 5.5,
+            itemNo = 10,
+            reviewCount = 2000,
+            saleInfo = SaleInfo(
+                consumerPrice = 2000,
+                couponSaleRate = 5,
+                isCoupon = true,
+                saleRate = 5,
+                sellPrice = 10000,
+                totalSaleRate = 200,
+                totalSellPrice = 20000
+            )
+        )
+    ) {}
 }
