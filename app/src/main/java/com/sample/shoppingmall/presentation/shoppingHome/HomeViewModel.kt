@@ -80,8 +80,6 @@ class HomeViewModel @Inject constructor(
                     categoryUpdateUseCase(events.category.copy(isFavorite = false))
                 }
             }
-
         }
     }
-
 }
