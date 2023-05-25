@@ -66,7 +66,7 @@ class ShoppingMallRemoteDataSourceImpl(
 
     @OptIn(ExperimentalPagingApi::class)
     override fun getCategoryList(categoryType: CategoryType): Flow<PagingData<Category>> {
-        val pagingSourceFactory = { db.categoryDao().pagingSource() }
+        val pagingSourceFactory = { db.categoryDao().pagingSource(categoryType) }
         return Pager(
             config = PagingConfig(pageSize = 10),
             remoteMediator = CategoryListRemoteMediator(
