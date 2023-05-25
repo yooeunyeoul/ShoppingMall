@@ -1,6 +1,7 @@
 package com.sample.data.di
 
 import com.sample.data.repository.ShoppingMallRepositoryImpl
+import com.sample.data.repository.datasource.ShoppingMallLocalDataSource
 import com.sample.data.repository.datasource.ShoppingMallRemoteDataSource
 import com.sample.domain.repository.ShoppingMallRepository
 import dagger.Module
@@ -16,8 +17,9 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideShoppingRepository(
-        remoteDataSource: ShoppingMallRemoteDataSource
+        remoteDataSource: ShoppingMallRemoteDataSource,
+        localDataSource: ShoppingMallLocalDataSource,
     ): ShoppingMallRepository {
-        return ShoppingMallRepositoryImpl(remoteDataSource)
+        return ShoppingMallRepositoryImpl(remoteDataSource,localDataSource)
     }
 }
