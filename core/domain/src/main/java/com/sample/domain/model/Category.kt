@@ -9,5 +9,5 @@ data class Category(
     val reviewAveragePoint: Double= 0.0,
     val reviewCount: Int=0,
     val saleInfo: SaleInfo = SaleInfo(),
-    var isFavorite: Boolean = false
+    val isFavorite: Boolean = false
 )
