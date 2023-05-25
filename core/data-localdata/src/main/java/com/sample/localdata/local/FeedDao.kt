@@ -15,11 +15,7 @@ interface FeedDao {
     @Query("SELECT * FROM feed_entity")
     fun pagingSource(): PagingSource<Int, FeedEntity>
 
-    @Query("DELETE FROM banner_entity")
+    @Query("DELETE FROM feed_entity")
     suspend fun clearAll()
-
-
-    @Query("SELECT * FROM banner_entity")
-    fun getBannerList(): Flow<List<BannerEntity>>
 
 }
