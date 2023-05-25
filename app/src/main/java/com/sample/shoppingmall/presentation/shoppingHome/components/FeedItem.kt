@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.sample.domain.model.Feed
 import com.sample.shoppingmall.presentation.components.CrossFadeImage
+import com.sample.shoppingmall.presentation.components.dpToSp
 
 @Composable
 fun FeedItem(feed: Feed) {
@@ -36,13 +37,13 @@ fun FeedItem(feed: Feed) {
             text = feed.feedTitle,
             color = Color.Black,
             fontWeight = FontWeight.Bold,
-            fontSize = 28.sp
+            fontSize = dpToSp(dp =28.dp )
         )
 
         Text(
             text = feed.feedContents,
             color = Color.Gray,
-            fontSize = 16.sp
+            fontSize = dpToSp(dp =16.dp )
         )
 
 
@@ -55,5 +56,5 @@ fun FeedItem(feed: Feed) {
 @Preview
 @Composable
 fun PreviewFeedItem() {
-    FeedItem(feed = Feed())
+    FeedItem(feed = Feed(feedContents = "컨텐츠", feedTitle = "타이틀", imageUrl = "https://img.29cm.co.kr//next-product//2020//11//18//de8724db0618460d9dc7a9a99125f8e7_20201118144729.jpg"))
 }
