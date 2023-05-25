@@ -7,10 +7,11 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.sample.data_paging.mappers.toCategoryEntity
+import com.sample.data_paging.mappers.toMap
 import com.sample.domain.response.NetworkResult
 import com.sample.domain.util.CategoryType
 import com.sample.localdata.local.CategoryEntity
-import com.sample.localdata.local.ImageRemoteKeysEntity
+import com.sample.localdata.local.CategoryRemoteKeysEntity
 import com.sample.localdata.local.ShoppingMallDatabase
 import com.sample.network.remote.ShoppingApi
 import com.sample.network.response.toNetworkResult
@@ -23,12 +24,17 @@ class CategoryListRemoteMediator(
 ) : RemoteMediator<Int, CategoryEntity>() {
 
     private val categoryDao = db.categoryDao()
-    private val imageRemoteKeysDao = db.imageRemoteKeysDao()
+    private val categoryRemoteKeysDao = db.categoryRemoteKeysDao()
+    lateinit var favoriteCategoryMap: Map<Int, Boolean>
 
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, CategoryEntity>
     ): MediatorResult {
+
+        if (!::favoriteCategoryMap.isInitialized) {
+            favoriteCategoryMap = categoryDao.getFavoriteImagesOfCategoryType(categoryType).toMap()
+        }
         return try {
 
             val page = when (loadType) {
@@ -42,7 +48,7 @@ class CategoryListRemoteMediator(
 
                 LoadType.APPEND -> {
                     val imageRemoteKeysEntity = db.withTransaction {
-                        imageRemoteKeysDao.getImageRemoteKey()
+                        categoryRemoteKeysDao.getImageRemoteKey(categoryType)
                     }
                     if (imageRemoteKeysEntity?.nextPage == null) {
                         return MediatorResult.Success(endOfPaginationReached = true)
@@ -60,7 +66,11 @@ class CategoryListRemoteMediator(
                         val responseSize = networkResponse.data.size
                         isPagingEnd = responseSize < 20
                         categoryList =
-                            networkResponse.data.map { categoryDto -> categoryDto.toCategoryEntity() }
+                            networkResponse.data.map { categoryDto ->
+                                categoryDto.toCategoryEntity(
+                                    categoryType, favoriteCategoryMap
+                                )
+                            }
                     }
 
                     is NetworkResult.Fail -> {
@@ -70,20 +80,21 @@ class CategoryListRemoteMediator(
 
                 db.withTransaction {
                     if (loadType == LoadType.REFRESH) {
-                        categoryDao.clearAll()
-                        imageRemoteKeysDao.deleteAllImageRemoteKeys()
+                        categoryDao.clearAll(categoryType)
+                        categoryRemoteKeysDao.deleteAllImageRemoteKeys(categoryType)
                     }
                     val nextPage = pageNum + 1
                     val prevPage: Int? = if (pageNum <= 1) null else pageNum
 
-                    val keys = categoryList.map { ImageEntity ->
-                        ImageRemoteKeysEntity(
-                            id = ImageEntity.itemNo,
+                    val keys = categoryList.map { categoryEntity ->
+                        CategoryRemoteKeysEntity(
+                            id = categoryEntity.itemNo,
                             prevPage = prevPage,
-                            nextPage = nextPage
+                            nextPage = nextPage,
+                            categoryType = categoryType
                         )
                     }
-                    imageRemoteKeysDao.addAllImageRemoteKeys(imageRemoteKeys = keys)
+                    categoryRemoteKeysDao.addAllImageRemoteKeys(imageRemoteKeys = keys)
                     categoryDao.upsertAll(images = categoryList)
                 }
             }
