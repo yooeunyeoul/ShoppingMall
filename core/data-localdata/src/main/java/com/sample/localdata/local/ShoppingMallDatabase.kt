@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [
-        BannerEntity::class, CategoryEntity::class, ImageRemoteKeysEntity::class, FeedEntity::class],
+        BannerEntity::class, CategoryEntity::class, FeedRemoteKeysEntity::class, FeedEntity::class,CategoryRemoteKeysEntity::class],
     version = 1
 )
 abstract class ShoppingMallDatabase : RoomDatabase() {
@@ -15,6 +15,10 @@ abstract class ShoppingMallDatabase : RoomDatabase() {
 
     abstract fun feedDao(): FeedDao
 
-    abstract fun imageRemoteKeysDao(): ImageRemoteKeysDao
+    abstract fun feedRemoteKeysDao(): FeedRemoteKeysDao
+
+    abstract fun categoryRemoteKeysDao(): CategoryRemoteKeysDao
+
+
 
 }
