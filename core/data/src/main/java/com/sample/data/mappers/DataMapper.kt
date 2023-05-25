@@ -30,6 +30,7 @@ fun CategoryEntity.toCategory(): Category {
         itemNo = itemNo,
         reviewAveragePoint = reviewAveragePoint,
         reviewCount = reviewCount,
+        isFavorite = isFavorite,
         saleInfo = SaleInfo()
     )
 }
