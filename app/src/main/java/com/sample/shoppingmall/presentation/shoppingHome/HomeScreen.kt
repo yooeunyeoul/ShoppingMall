@@ -1,9 +1,13 @@
-@file:OptIn(ExperimentalPagerApi::class, ExperimentalPagerApi::class)
+@file:OptIn(ExperimentalPagerApi::class, ExperimentalPagerApi::class, ExperimentalPagerApi::class,
+    ExperimentalPagerApi::class, ExperimentalPagerApi::class
+)
 
 package com.sample.shoppingmall.presentation.shoppingHome
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.interaction.collectIsDraggedAsState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
@@ -20,9 +24,12 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -30,7 +37,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -38,16 +44,18 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
 import com.sample.domain.util.Resource
+import com.sample.shoppingmall.presentation.components.dpToSp
 import com.sample.shoppingmall.presentation.shoppingHome.components.CategoryListLazyColumn
 import com.sample.shoppingmall.presentation.shoppingHome.components.FeedListLazyColumn
+import com.sample.shoppingmall.presentation.shoppingHome.components.horizontalBanner
 import com.sample.shoppingmall.presentation.util.HomeTabType
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlin.time.Duration.Companion.seconds
 
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
@@ -55,10 +63,35 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     val bannerState by viewModel.bannerList.collectAsStateWithLifecycle()
     val context = LocalContext.current
 
+    var count by remember {
+        mutableStateOf(0)
+    }
+    val pagerState = rememberPagerState(initialPage = 200)
+
+    val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
+
+    if (!isDragged) {
+        LaunchedEffect(bannerState) {
+            count = bannerState.data?.count() ?: 0
+            while (true) {
+                delay(2.5.seconds)
+                with(pagerState) {
+                    try {
+                        animateScrollToPage(
+                            page = currentPage + 1
+                        )
+                    } catch (e: Exception) {
+                        Log.e("error message", e.message ?: "")
+                    }
+                }
+            }
+        }
+    }
+
+
     BoxWithConstraints {
         val screenHeight = maxHeight
         val scrollState = rememberScrollState()
-
 
         Column(
             Modifier
@@ -78,16 +111,10 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             Toast.LENGTH_LONG
                         ).show()
 
-                        HorizontalPager(count = bannerState.data?.count() ?: 0) { page ->
-                            AsyncImage(
-                                model = ImageRequest.Builder(LocalContext.current)
-                                    .data(bannerState.data?.get(page)?.imageUrl)
-                                    .crossfade(true).build(),
-                                contentScale = ContentScale.FillWidth,
-                                contentDescription = null,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
+                        horizontalBanner(
+                            pagerState = pagerState,
+                            banners = bannerState.data ?: listOf()
+                        )
                     }
 
                     is Resource.Loading -> {
@@ -95,19 +122,12 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                     }
 
                     is Resource.Success -> {
-                        HorizontalPager(count = bannerState.data?.count() ?: 0) { page ->
-                            AsyncImage(
-                                model = ImageRequest.Builder(LocalContext.current)
-                                    .data(bannerState.data?.get(page)?.imageUrl)
-                                    .crossfade(true).build(),
-                                contentScale = ContentScale.FillWidth,
-                                contentDescription = null,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                        }
+                        horizontalBanner(
+                            pagerState = pagerState,
+                            banners = bannerState.data ?: listOf()
+                        )
                     }
                 }
-
             }
 
             Column(modifier = Modifier.height(screenHeight)) {
@@ -130,7 +150,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                                     color = if (pagerState.currentPage == index) Color.Black else Color.LightGray,
                                     modifier = Modifier.padding(vertical = 20.dp),
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 14.sp
+                                    fontSize = dpToSp(dp =12.dp )
                                 )
                             }
                         }
@@ -193,7 +213,11 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         HomeTabType.TECH.index -> {
                             val techList = viewModel.techList.collectAsLazyPagingItems()
                             CategoryListLazyColumn(techList, onHeartClick = { category ->
-                                viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category.copy(isFavorite = !category.isFavorite)))
+                                if (category.isFavorite) {
+                                    viewModel.onEvent(ShoppingHomeEvents.DeleteFavorite(category))
+                                } else {
+                                    viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category))
+                                }
                             })
                         }
 
