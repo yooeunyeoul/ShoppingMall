@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalPagerApi::class, ExperimentalPagerApi::class, ExperimentalPagerApi::class,
+@file:OptIn(
+    ExperimentalPagerApi::class, ExperimentalPagerApi::class, ExperimentalPagerApi::class,
     ExperimentalPagerApi::class, ExperimentalPagerApi::class
 )
 
@@ -24,6 +25,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,10 +40,13 @@ import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
 import androidx.compose.ui.input.nestedscroll.NestedScrollSource
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -58,7 +63,10 @@ import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+fun HomeScreen(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    viewModel: HomeViewModel = hiltViewModel()
+) {
 
     val bannerState by viewModel.bannerList.collectAsStateWithLifecycle()
     val context = LocalContext.current
@@ -66,16 +74,21 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
     var count by remember {
         mutableStateOf(0)
     }
-    val pagerState = rememberPagerState(initialPage = 200)
+    val bannerPagerState = rememberPagerState(initialPage = 200)
 
-    val isDragged by pagerState.interactionSource.collectIsDraggedAsState()
+    val scrollState = rememberScrollState()
+
+    val isDragged by bannerPagerState.interactionSource.collectIsDraggedAsState()
+
+    val productPagerState = viewModel.pagerState
+
 
     if (!isDragged) {
         LaunchedEffect(bannerState) {
             count = bannerState.data?.count() ?: 0
             while (true) {
                 delay(2.5.seconds)
-                with(pagerState) {
+                with(bannerPagerState) {
                     try {
                         animateScrollToPage(
                             page = currentPage + 1
@@ -88,10 +101,21 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
         }
     }
 
+    DisposableEffect(lifecycleOwner) {
+        val observer = LifecycleEventObserver { _, event ->
+            if (event == Lifecycle.Event.ON_STOP) {
+                viewModel.saveTabIndex()
+            }
+        }
+        lifecycleOwner.lifecycle.addObserver(observer)
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(observer)
+        }
+    }
+
 
     BoxWithConstraints {
         val screenHeight = maxHeight
-        val scrollState = rememberScrollState()
 
         Column(
             Modifier
@@ -112,7 +136,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                         ).show()
 
                         horizontalBanner(
-                            pagerState = pagerState,
+                            pagerState = bannerPagerState,
                             banners = bannerState.data ?: listOf()
                         )
                     }
@@ -123,7 +147,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
                     is Resource.Success -> {
                         horizontalBanner(
-                            pagerState = pagerState,
+                            pagerState = bannerPagerState,
                             banners = bannerState.data ?: listOf()
                         )
                     }
@@ -131,32 +155,34 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
             }
 
             Column(modifier = Modifier.height(screenHeight)) {
-                val pagerState = rememberPagerState(initialPage = 0)
+
+
                 val coroutineScope = rememberCoroutineScope()
 
+
                 TabRow(
-                    selectedTabIndex = pagerState.currentPage,
+                    selectedTabIndex = productPagerState.currentPage,
                     indicator = {},
                     modifier = Modifier.wrapContentSize(),
                     tabs = {
                         HomeTabType.values().forEachIndexed { index, categoryType ->
-                            Tab(selected = pagerState.currentPage == index, onClick = {
+                            Tab(selected = productPagerState.currentPage == index, onClick = {
                                 coroutineScope.launch {
-                                    pagerState.animateScrollToPage(index)
+                                    productPagerState.animateScrollToPage(index)
                                 }
                             }) {
                                 Text(
                                     text = categoryType.name,
-                                    color = if (pagerState.currentPage == index) Color.Black else Color.LightGray,
+                                    color = if (productPagerState.currentPage == index) Color.Black else Color.LightGray,
                                     modifier = Modifier.padding(vertical = 20.dp),
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = dpToSp(dp =12.dp )
+                                    fontSize = dpToSp(dp = 12.dp)
                                 )
                             }
                         }
                     })
                 HorizontalPager(
-                    state = pagerState,
+                    state = productPagerState,
                     count = HomeTabType.values().size,
                     modifier = Modifier
                         .fillMaxHeight()
@@ -174,6 +200,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                             }
                         })
                 ) { page: Int ->
+
                     when (page) {
                         HomeTabType.MEN.index -> {
 
@@ -219,6 +246,7 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                                     viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category))
                                 }
                             })
+//                            viewModel.updateTabIndex(HomeTabType.TECH.index)
                         }
 
                         HomeTabType.BESTFEED.index -> {
