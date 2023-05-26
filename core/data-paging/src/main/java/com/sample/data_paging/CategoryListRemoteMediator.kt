@@ -60,14 +60,13 @@ class CategoryListRemoteMediator(
             var isPagingEnd = false
             var categoryList = listOf<CategoryEntity>()
             page?.let { pageNum ->
-                when (val networkResponse =
+                val networkResponse =
                     api.getCategoryList(category = categoryType, pageNum = pageNum)
-                        .toNetworkResult()) {
+                when (val networkResult = networkResponse.toNetworkResult()) {
                     is NetworkResult.Success -> {
-                        val responseSize = networkResponse.data.size
-                        isPagingEnd = responseSize < CATEGORY_PER_PAGE_SIZE
+                        isPagingEnd = networkResponse.total_count <= CATEGORY_PER_PAGE_SIZE * pageNum
                         categoryList =
-                            networkResponse.data.map { categoryDto ->
+                            networkResult.data.map { categoryDto ->
                                 categoryDto.toCategoryEntity(
                                     categoryType, favoriteCategoryMap
                                 )

@@ -6,6 +6,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.sample.common_utils.Constants.CATEGORY_PER_PAGE_SIZE
 import com.sample.common_utils.Constants.FEED_PER_PAGE_SIZE
 import com.sample.data_paging.mappers.toFeedEntity
 import com.sample.domain.response.NetworkResult
@@ -52,14 +53,15 @@ class FeedListRemoteMediator(
             var isPagingEnd = false
             var feedList = listOf<FeedEntity>()
             page?.let { pageNum ->
-                when (val networkResponse =
+                val networkResponse =
                     api.getFeedList(pageNum = pageNum)
-                        .toNetworkResult()) {
+
+                when (val networkResult = networkResponse.toNetworkResult()) {
                     is NetworkResult.Success -> {
-                        val responseSize = networkResponse.data.size
-                        isPagingEnd = responseSize < FEED_PER_PAGE_SIZE
+                        isPagingEnd =
+                            networkResponse.total_count <= FEED_PER_PAGE_SIZE * pageNum
                         feedList =
-                            networkResponse.data.map { feedDto -> feedDto.toFeedEntity() }
+                            networkResult.data.map { feedDto -> feedDto.toFeedEntity() }
                     }
 
                     is NetworkResult.Fail -> {
