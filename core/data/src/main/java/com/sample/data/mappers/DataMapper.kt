@@ -31,7 +31,15 @@ fun CategoryEntity.toCategory(): Category {
         reviewAveragePoint = reviewAveragePoint,
         reviewCount = reviewCount,
         isFavorite = isFavorite,
-        saleInfo = SaleInfo()
+        saleInfo = SaleInfo(
+            consumerPrice = consumerPrice,
+            couponSaleRate = couponSaleRate,
+            isCoupon = isCoupon,
+            saleRate = saleRate,
+            sellPrice = sellPrice,
+            totalSellPrice = totalSellPrice,
+            totalSaleRate = totalSaleRate
+        )
     )
 }
 
