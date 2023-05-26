@@ -2,6 +2,7 @@ package com.sample.localdata.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.sample.domain.model.SaleInfo
 import com.sample.domain.util.CategoryType
 import java.io.Serializable
 
@@ -16,7 +17,14 @@ data class CategoryEntity(
     val reviewAveragePoint: Double,
     val reviewCount : Int ,
     val isFavorite: Boolean,
-    val categoryType: CategoryType
+    val categoryType: CategoryType,
+    val consumerPrice: Int,
+    val couponSaleRate: Int,
+    val isCoupon: Boolean,
+    val saleRate: Int,
+    val sellPrice: Int,
+    val totalSaleRate: Int,
+    val totalSellPrice: Int
 
 ) : Serializable
 
