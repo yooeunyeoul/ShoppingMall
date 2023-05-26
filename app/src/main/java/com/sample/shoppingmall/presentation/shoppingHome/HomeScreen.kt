@@ -80,7 +80,9 @@ fun HomeScreen(
 
     val isDragged by bannerPagerState.interactionSource.collectIsDraggedAsState()
 
-    val productPagerState = viewModel.pagerState
+    val productPagerState by viewModel.pagerState.collectAsStateWithLifecycle()
+
+    val coroutineScope = rememberCoroutineScope()
 
 
     if (!isDragged) {
@@ -104,7 +106,7 @@ fun HomeScreen(
     DisposableEffect(lifecycleOwner) {
         val observer = LifecycleEventObserver { _, event ->
             if (event == Lifecycle.Event.ON_STOP) {
-                viewModel.saveTabIndex()
+                viewModel.onEvent(ShoppingHomeEvents.SaveTabIndex)
             }
         }
         lifecycleOwner.lifecycle.addObserver(observer)
@@ -155,10 +157,6 @@ fun HomeScreen(
             }
 
             Column(modifier = Modifier.height(screenHeight)) {
-
-
-                val coroutineScope = rememberCoroutineScope()
-
 
                 TabRow(
                     selectedTabIndex = productPagerState.currentPage,
@@ -246,7 +244,6 @@ fun HomeScreen(
                                     viewModel.onEvent(ShoppingHomeEvents.AddFavorite(category))
                                 }
                             })
-//                            viewModel.updateTabIndex(HomeTabType.TECH.index)
                         }
 
                         HomeTabType.BESTFEED.index -> {
