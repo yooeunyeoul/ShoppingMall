@@ -60,4 +60,6 @@ dependencies {
     implementation project(path: ':core:data-network')
     implementation project(path: ':core:domain')
     implementation project(path: ':common:common_utils')
+
+    androidTestImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
 }
