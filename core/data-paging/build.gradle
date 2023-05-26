@@ -59,4 +59,5 @@ dependencies {
     implementation project(path: ':core:data-localdata')
     implementation project(path: ':core:data-network')
     implementation project(path: ':core:domain')
+    implementation project(path: ':common:common_utils')
 }

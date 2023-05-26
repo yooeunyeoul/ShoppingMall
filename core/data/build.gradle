@@ -37,6 +37,7 @@ dependencies {
     implementation project(path: ':core:data-network')
     implementation project(path: ':core:data-localdata')
     implementation project(path: ':core:data-paging')
+    implementation project(path: ':common:common_utils')
 
     implementation "androidx.core:core-ktx:$core_ktx_version"
     implementation "androidx.appcompat:appcompat:$app_compat_version"
