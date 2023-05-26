@@ -6,6 +6,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.sample.common_utils.Constants.FEED_PER_PAGE_SIZE
 import com.sample.data_paging.mappers.toFeedEntity
 import com.sample.domain.response.NetworkResult
 import com.sample.localdata.local.FeedEntity
@@ -56,7 +57,7 @@ class FeedListRemoteMediator(
                         .toNetworkResult()) {
                     is NetworkResult.Success -> {
                         val responseSize = networkResponse.data.size
-                        isPagingEnd = responseSize < 10
+                        isPagingEnd = responseSize < FEED_PER_PAGE_SIZE
                         feedList =
                             networkResponse.data.map { feedDto -> feedDto.toFeedEntity() }
                     }

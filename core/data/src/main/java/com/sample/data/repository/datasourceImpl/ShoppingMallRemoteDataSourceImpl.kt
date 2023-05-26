@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
 import androidx.room.withTransaction
+import com.sample.common_utils.Constants.PRE_LOAD_SIZE
 import com.sample.data.mappers.toBanner
 import com.sample.data.mappers.toBannerEntity
 import com.sample.data.mappers.toCategory
@@ -68,7 +69,7 @@ class ShoppingMallRemoteDataSourceImpl(
     override fun getCategoryList(categoryType: CategoryType): Flow<PagingData<Category>> {
         val pagingSourceFactory = { db.categoryDao().pagingSource(categoryType) }
         return Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = PRE_LOAD_SIZE),
             remoteMediator = CategoryListRemoteMediator(
                 api = api,
                 db = db,
@@ -83,7 +84,7 @@ class ShoppingMallRemoteDataSourceImpl(
     override fun getFeedList(): Flow<PagingData<Feed>> {
         val pagingSourceFactory = { db.feedDao().pagingSource() }
         return Pager(
-            config = PagingConfig(pageSize = 10),
+            config = PagingConfig(pageSize = PRE_LOAD_SIZE),
             remoteMediator = FeedListRemoteMediator(
                 api = api,
                 db = db

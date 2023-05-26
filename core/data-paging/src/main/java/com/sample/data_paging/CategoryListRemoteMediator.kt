@@ -6,6 +6,7 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
+import com.sample.common_utils.Constants.CATEGORY_PER_PAGE_SIZE
 import com.sample.data_paging.mappers.toCategoryEntity
 import com.sample.data_paging.mappers.toMap
 import com.sample.domain.response.NetworkResult
@@ -64,7 +65,7 @@ class CategoryListRemoteMediator(
                         .toNetworkResult()) {
                     is NetworkResult.Success -> {
                         val responseSize = networkResponse.data.size
-                        isPagingEnd = responseSize < 20
+                        isPagingEnd = responseSize < CATEGORY_PER_PAGE_SIZE
                         categoryList =
                             networkResponse.data.map { categoryDto ->
                                 categoryDto.toCategoryEntity(
