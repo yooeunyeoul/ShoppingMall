@@ -43,7 +43,10 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
         Spacer(modifier = Modifier.height(12.dp))
 
         Column(modifier = Modifier.padding(horizontal = 8.dp)) {
-            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            Row(
+                Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
                 Text(
                     text = category.brandName,
                     color = Color.Black,
@@ -63,12 +66,16 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
             Spacer(modifier = Modifier.height(14.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Text(
-                    text = category.saleInfo.saleRate.toString() + "%",
-                    color = Color(0xFFEE6B42),
-                    fontSize = dpToSp(dp = 16.dp)
-                )
-                Spacer(modifier = Modifier.width(6.dp))
+                if (category.saleInfo.saleRate != 0) {
+                    Text(
+                        text = category.saleInfo.saleRate.toString() + "%",
+                        color = Color(0xFFEE6B42),
+                        fontSize = dpToSp(dp = 16.dp)
+                    )
+                    Spacer(modifier = Modifier.width(6.dp))
+
+                }
+
                 Text(
                     text = NumberComma.decimalFormat.format(category.saleInfo.consumerPrice),
                     color = Color.Black,
