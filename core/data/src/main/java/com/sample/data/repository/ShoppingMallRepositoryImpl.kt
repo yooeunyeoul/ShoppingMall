@@ -30,4 +30,12 @@ class ShoppingMallRepositoryImpl(
     override suspend fun updateCategoryFavorite(category: Category) {
         localDataSource.categoryFavoriteUpdateToDB(category)
     }
+
+    override fun getSavedTabIndex(): Flow<Int> {
+        return localDataSource.getSavedTabIndex()
+    }
+
+    override suspend fun saveTabIndex(index:Int) {
+        localDataSource.saveTabIndexToDataStore(index)
+    }
 }

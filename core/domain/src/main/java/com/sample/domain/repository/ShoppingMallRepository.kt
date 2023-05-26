@@ -13,4 +13,6 @@ interface ShoppingMallRepository {
     fun getCategoryList(categoryType: CategoryType): Flow<PagingData<Category>>
     fun getFeedList(): Flow<PagingData<Feed>>
     suspend fun updateCategoryFavorite(category: Category)
+    fun getSavedTabIndex(): Flow<Int>
+    suspend fun saveTabIndex(index: Int)
 }
