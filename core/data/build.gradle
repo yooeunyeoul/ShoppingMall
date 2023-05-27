@@ -39,24 +39,25 @@ dependencies {
     implementation project(path: ':core:data-paging')
     implementation project(path: ':common:common_utils')
 
-    implementation "androidx.core:core-ktx:$core_ktx_version"
-    implementation "androidx.appcompat:appcompat:$app_compat_version"
+    implementation Deps.core
 
-    testImplementation "junit:junit:$junit_version"
+    testImplementation TestDeps.jUnit
+    androidTestImplementation AndroidTestDeps.jUnit
+    androidTestImplementation AndroidTestDeps.espresso
 
     //ROOM DB
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    implementation "androidx.room:room-paging:$room_version"
+    implementation Deps.roomRuntime
+    kapt Deps.roomCompiler
+    implementation Deps.roomKtx
+    implementation Deps.roomPaging
 
     // Paging 3.0
-    implementation "androidx.paging:paging-compose:$paging_version"
+    implementation Deps.pagingCompose
 
     //hilt
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
-    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
+    implementation Deps.hiltAndroid
+    kapt Deps.hiltCompiler
+    implementation Deps.hiltNavigation
 
-    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation Deps.datastorePreferences
 }

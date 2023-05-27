@@ -18,30 +18,47 @@ object Versions {
     const val retrofitSerialization = "0.8.0"
     const val okhttp = "5.0.0-alpha.1"
     const val okhttpLoggingInterceptor = "5.0.0-alpha.3"
+    const val roomVersion = "2.5.1"
 }
 
 
 object Deps {
     const val core = "androidx.core:core-ktx:${Versions.core}"
     const val activity_compose = "androidx.activity:activity-compose:${Versions.activity_compose}"
+
     const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
     const val runtimeCompose = "androidx.lifecycle:lifecycle-runtime-compose:${Versions.lifecycle}"
     const val viewModelCompose = "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.lifecycle}"
+
     const val navigationCompose = "androidx.navigation:navigation-compose:${Versions.navigationCompose}"
+
     const val coilCompose = "io.coil-kt:coil-compose:${Versions.coilCompose}"
+
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hiltAndroid}"
     const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"
+
     const val accompanistPager = "com.google.accompanist:accompanist-pager:${Versions.accompanistPager}"
     const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanistPagerIndicator}"
+
     const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
+
     const val datastorePreferences = "androidx.datastore:datastore-preferences:${Versions.datastorePreferences}"
+
     const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofitConverterGson}"
     const val retrofitSerialization = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitSerialization}"
+
     const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
     const val okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingInterceptor}"
+
+    const val roomRuntime = "androidx.room:room-runtime:${Versions.roomVersion}"
+    const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
+    const val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
+    const val roomPaging = "androidx.room:room-paging:${Versions.roomVersion}"
+
+
 
 }
 
