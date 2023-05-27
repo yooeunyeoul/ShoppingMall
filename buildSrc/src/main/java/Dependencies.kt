@@ -20,12 +20,21 @@ object Versions {
     const val okhttpLoggingInterceptor = "5.0.0-alpha.3"
     const val roomVersion = "2.5.1"
     const val coroutineTest = "1.6.4"
+
+    const val javaInject = "1"
+    const val gson = "2.9.0"
+
+    const val appCompat = "1.6.1"
 }
 
 
 object Deps {
     const val core = "androidx.core:core-ktx:${Versions.core}"
     const val activity_compose = "androidx.activity:activity-compose:${Versions.activity_compose}"
+
+    const val appCompat = "androidx.appcompat:appcompat:${Versions.appCompat}"
+
+
 
     const val viewModelKtx = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
     const val runtimeKtx = "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle}"
@@ -58,6 +67,11 @@ object Deps {
     const val roomCompiler = "androidx.room:room-compiler:${Versions.roomVersion}"
     const val roomKtx = "androidx.room:room-ktx:${Versions.roomVersion}"
     const val roomPaging = "androidx.room:room-paging:${Versions.roomVersion}"
+
+    const val javaInject = "javax.inject:javax.inject:${Versions.javaInject}"
+    const val gson = "com.google.code.gson:gson:${Versions.gson}"
+
+
 
 
 

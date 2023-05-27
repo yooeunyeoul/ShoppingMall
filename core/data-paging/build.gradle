@@ -40,6 +40,7 @@ dependencies {
     implementation project(path: ':common:common_utils')
 
     implementation Deps.core
+    implementation Deps.appCompat
 
     testImplementation TestDeps.jUnit
     androidTestImplementation AndroidTestDeps.jUnit
