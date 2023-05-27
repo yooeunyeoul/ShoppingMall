@@ -19,6 +19,7 @@ object Versions {
     const val okhttp = "5.0.0-alpha.1"
     const val okhttpLoggingInterceptor = "5.0.0-alpha.3"
     const val roomVersion = "2.5.1"
+    const val coroutineTest = "1.6.4"
 }
 
 
@@ -60,6 +61,7 @@ object Deps {
 
 
 
+
 }
 
 object TestDeps {
@@ -69,4 +71,5 @@ object TestDeps {
 object AndroidTestDeps{
     const val jUnit = "androidx.test.ext:junit:${Versions.androidTestJunit}"
     const val espresso = "androidx.test.espresso:espresso-core:${Versions.androidTestEspresso}"
+    const val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutineTest}"
 }
