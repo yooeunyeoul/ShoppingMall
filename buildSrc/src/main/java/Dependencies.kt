@@ -13,6 +13,11 @@ object Versions {
     const val accompanistPagerIndicator = "0.25.0"
     const val pagingCompose = "1.0.0-alpha18"
     const val datastorePreferences = "1.0.0"
+    const val retrofit = "2.9.0"
+    const val retrofitConverterGson = "2.9.0"
+    const val retrofitSerialization = "0.8.0"
+    const val okhttp = "5.0.0-alpha.1"
+    const val okhttpLoggingInterceptor = "5.0.0-alpha.3"
 }
 
 
@@ -32,6 +37,11 @@ object Deps {
     const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanistPagerIndicator}"
     const val pagingCompose = "androidx.paging:paging-compose:${Versions.pagingCompose}"
     const val datastorePreferences = "androidx.datastore:datastore-preferences:${Versions.datastorePreferences}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    const val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofitConverterGson}"
+    const val retrofitSerialization = "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:${Versions.retrofitSerialization}"
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    const val okhttpLoggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpLoggingInterceptor}"
 
 }
 
