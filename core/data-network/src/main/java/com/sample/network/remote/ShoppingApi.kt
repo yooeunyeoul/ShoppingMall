@@ -1,6 +1,6 @@
 package com.sample.network.remote
 
-import com.sample.domain.util.CategoryType
+import com.sample.common_utils.utils.CategoryType
 import com.sample.network.base.CommonListResponse
 import com.sample.network.base.CommonPagingListResponse
 import com.sample.network.model.BannerDto

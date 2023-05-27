@@ -33,6 +33,7 @@ android {
 dependencies {
 
     implementation Deps.core
+    implementation project(path: ':common:common_utils')
 
     testImplementation TestDeps.jUnit
     androidTestImplementation AndroidTestDeps.jUnit
@@ -42,6 +43,4 @@ dependencies {
     implementation Deps.pagingCompose
 
     implementation Deps.javaInject
-
-    implementation Deps.gson
 }

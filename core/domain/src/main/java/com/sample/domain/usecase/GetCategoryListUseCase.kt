@@ -1,9 +1,9 @@
 package com.sample.domain.usecase
 
 import androidx.paging.PagingData
+import com.sample.common_utils.utils.CategoryType
 import com.sample.domain.model.Category
 import com.sample.domain.repository.ShoppingMallRepository
-import com.sample.domain.util.CategoryType
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

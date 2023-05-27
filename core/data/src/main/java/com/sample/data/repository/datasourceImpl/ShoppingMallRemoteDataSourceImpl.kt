@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalPagingApi::class, ExperimentalPagingApi::class)
-
 package com.sample.data.repository.datasourceImpl
 
 import androidx.paging.ExperimentalPagingApi
@@ -9,6 +7,8 @@ import androidx.paging.PagingData
 import androidx.paging.map
 import androidx.room.withTransaction
 import com.sample.common_utils.Constants.PRE_LOAD_SIZE
+import com.sample.common_utils.utils.CategoryType
+import com.sample.common_utils.utils.Resource
 import com.sample.data.mappers.toBanner
 import com.sample.data.mappers.toBannerEntity
 import com.sample.data.mappers.toCategory
@@ -20,8 +20,6 @@ import com.sample.domain.model.Banner
 import com.sample.domain.model.Category
 import com.sample.domain.model.Feed
 import com.sample.domain.response.NetworkResult
-import com.sample.domain.util.CategoryType
-import com.sample.domain.util.Resource
 import com.sample.localdata.local.BannerEntity
 import com.sample.localdata.local.CategoryEntity
 import com.sample.localdata.local.FeedEntity

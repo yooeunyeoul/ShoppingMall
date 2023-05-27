@@ -35,6 +35,7 @@ dependencies {
     implementation project(path: ':core:domain')
 
     implementation Deps.core
+    implementation project(path: ':common:common_utils')
 
     testImplementation TestDeps.jUnit
     androidTestImplementation AndroidTestDeps.jUnit

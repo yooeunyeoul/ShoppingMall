@@ -48,7 +48,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
-import com.sample.domain.util.Resource
+import com.sample.common_utils.utils.Resource
 import com.sample.shoppingmall.presentation.components.dpToSp
 import com.sample.shoppingmall.presentation.shoppingHome.components.CategoryListLazyColumn
 import com.sample.shoppingmall.presentation.shoppingHome.components.FeedListLazyColumn

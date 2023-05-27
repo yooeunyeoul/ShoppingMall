@@ -7,10 +7,10 @@ import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import androidx.room.withTransaction
 import com.sample.common_utils.Constants.CATEGORY_PER_PAGE_SIZE
+import com.sample.common_utils.utils.CategoryType
 import com.sample.data_paging.mappers.toCategoryEntity
 import com.sample.data_paging.mappers.toMap
 import com.sample.domain.response.NetworkResult
-import com.sample.domain.util.CategoryType
 import com.sample.localdata.local.CategoryEntity
 import com.sample.localdata.local.CategoryRemoteKeysEntity
 import com.sample.localdata.local.ShoppingMallDatabase

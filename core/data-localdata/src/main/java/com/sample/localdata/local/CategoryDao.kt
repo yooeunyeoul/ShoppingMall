@@ -4,7 +4,7 @@ import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Upsert
-import com.sample.domain.util.CategoryType
+import com.sample.common_utils.utils.CategoryType
 
 @Dao
 interface CategoryDao {

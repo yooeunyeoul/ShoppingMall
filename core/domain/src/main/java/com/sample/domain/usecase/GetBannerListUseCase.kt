@@ -1,8 +1,8 @@
 package com.sample.domain.usecase
 
+import com.sample.common_utils.utils.Resource
 import com.sample.domain.model.Banner
 import com.sample.domain.repository.ShoppingMallRepository
-import com.sample.domain.util.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

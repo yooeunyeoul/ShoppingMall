@@ -1,6 +1,6 @@
 package com.sample.data_paging.mappers
 
-import com.sample.domain.util.CategoryType
+import com.sample.common_utils.utils.CategoryType
 import com.sample.localdata.local.CategoryEntity
 import com.sample.localdata.local.FeedEntity
 import com.sample.network.model.CategoryDto

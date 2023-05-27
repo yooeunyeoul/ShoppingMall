@@ -5,8 +5,8 @@ import com.sample.data.repository.datasource.ShoppingMallRemoteDataSource
 import com.sample.domain.model.Banner
 import com.sample.domain.model.Category
 import com.sample.domain.model.Feed
-import com.sample.domain.util.CategoryType
-import com.sample.domain.util.Resource
+import com.sample.common_utils.utils.CategoryType
+import com.sample.common_utils.utils.Resource
 import kotlinx.coroutines.flow.Flow
 
 class FakeShoppingMallRemoteDataSourceImpl:ShoppingMallRemoteDataSource {

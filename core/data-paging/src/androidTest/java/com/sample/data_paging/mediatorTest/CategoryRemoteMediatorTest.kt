@@ -9,10 +9,10 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.sample.common_utils.Constants
+import com.sample.common_utils.utils.CategoryType
 import com.sample.data_paging.CategoryListRemoteMediator
 import com.sample.data_paging.factory.CategoryResponseFactory
 import com.sample.data_paging.fake.MockShoppingApi
-import com.sample.domain.util.CategoryType
 import com.sample.localdata.local.CategoryEntity
 import com.sample.localdata.local.ShoppingMallDatabase
 import kotlinx.coroutines.ExperimentalCoroutinesApi

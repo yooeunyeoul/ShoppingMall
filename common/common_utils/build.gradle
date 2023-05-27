@@ -44,4 +44,6 @@ dependencies {
     implementation Deps.hiltAndroid
     kapt Deps.hiltCompiler
     implementation Deps.hiltNavigation
+
+    implementation Deps.gson
 }

@@ -1,4 +1,4 @@
-package com.sample.domain.util
+package com.sample.common_utils.utils
 
 sealed class Resource<T>(val data: T? = null, val message: String? = null) {
     class Success<T>(data: T) : Resource<T>(data)

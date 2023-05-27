@@ -1,4 +1,4 @@
-package com.sample.domain.util
+package com.sample.common_utils.utils
 
 import com.google.gson.annotations.SerializedName
 
