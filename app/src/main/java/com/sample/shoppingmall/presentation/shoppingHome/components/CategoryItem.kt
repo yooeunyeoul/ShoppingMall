@@ -66,9 +66,9 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
             Spacer(modifier = Modifier.height(14.dp))
 
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (category.saleInfo.saleRate != 0) {
+                if (category.saleInfo.totalSaleRate != 0) {
                     Text(
-                        text = category.saleInfo.saleRate.toString() + "%",
+                        text = category.saleInfo.totalSaleRate.toString() + "%",
                         color = Color(0xFFEE6B42),
                         fontSize = dpToSp(dp = 16.dp)
                     )
@@ -77,7 +77,7 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
                 }
 
                 Text(
-                    text = NumberComma.decimalFormat.format(category.saleInfo.consumerPrice),
+                    text = NumberComma.decimalFormat.format(category.saleInfo.totalSellPrice),
                     color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     fontSize = dpToSp(dp = 16.dp)
@@ -137,10 +137,6 @@ fun PreviewCategoryItem() {
             reviewCount = 2000,
             saleInfo = SaleInfo(
                 consumerPrice = 2000,
-                couponSaleRate = 5,
-                isCoupon = true,
-                saleRate = 5,
-                sellPrice = 10000,
                 totalSaleRate = 200,
                 totalSellPrice = 20000
             )

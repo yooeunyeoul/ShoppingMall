@@ -33,10 +33,6 @@ fun CategoryEntity.toCategory(): Category {
         isFavorite = isFavorite,
         saleInfo = SaleInfo(
             consumerPrice = consumerPrice,
-            couponSaleRate = couponSaleRate,
-            isCoupon = isCoupon,
-            saleRate = saleRate,
-            sellPrice = sellPrice,
             totalSellPrice = totalSellPrice,
             totalSaleRate = totalSaleRate
         )

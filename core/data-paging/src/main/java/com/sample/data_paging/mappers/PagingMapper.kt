@@ -21,10 +21,6 @@ fun CategoryDto.toCategoryEntity(
         isFavorite = favoriteCategoryMap[item_no] ?: false,
         categoryType = categoryType,
         consumerPrice = sale_info.consumer_price,
-        couponSaleRate = sale_info.coupon_sale_rate,
-        isCoupon = sale_info.is_coupon,
-        saleRate = sale_info.sale_rate,
-        sellPrice = sale_info.sell_price,
         totalSaleRate = sale_info.total_sale_rate,
         totalSellPrice = sale_info.total_sell_price
 

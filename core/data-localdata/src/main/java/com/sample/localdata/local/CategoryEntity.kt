@@ -19,10 +19,6 @@ data class CategoryEntity(
     val isFavorite: Boolean,
     val categoryType: CategoryType,
     val consumerPrice: Int,
-    val couponSaleRate: Int,
-    val isCoupon: Boolean,
-    val saleRate: Int,
-    val sellPrice: Int,
     val totalSaleRate: Int,
     val totalSellPrice: Int
 
