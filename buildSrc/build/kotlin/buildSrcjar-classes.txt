@@ -1,0 +1,1 @@
+/Users/fanmaum/ShoppingMall/buildSrc/build/classes/kotlin/main/AndroidTestDeps.class:/Users/fanmaum/ShoppingMall/buildSrc/build/classes/kotlin/main/Deps.class:/Users/fanmaum/ShoppingMall/buildSrc/build/classes/kotlin/main/TestDeps.class:/Users/fanmaum/ShoppingMall/buildSrc/build/classes/kotlin/main/Versions.class
