@@ -29,10 +29,10 @@ import javax.inject.Inject
 @OptIn(ExperimentalPagerApi::class)
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val getBannerListUseCase: GetBannerListUseCase,
-    private val getCategoryListUseCase: GetCategoryListUseCase,
+    getBannerListUseCase: GetBannerListUseCase,
+    getCategoryListUseCase: GetCategoryListUseCase,
     private val categoryUpdateUseCase: CategoryUpdateFavoriteCase,
-    private val getFeedListUseCase: GetFeedListUseCase,
+    getFeedListUseCase: GetFeedListUseCase,
     private val getSavedTabIndexUseCase: GetSavedTabIndexUseCase,
     private val saveTabIndexUseCase: SaveTabIndexUseCase
 

@@ -1,7 +1,3 @@
-@file:OptIn(
-    ExperimentalPagerApi::class, ExperimentalPagerApi::class, ExperimentalPagerApi::class,
-    ExperimentalPagerApi::class, ExperimentalPagerApi::class
-)
 
 package com.sample.shoppingmall.presentation.shoppingHome
 
@@ -62,6 +58,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.time.Duration.Companion.seconds
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun HomeScreen(
     lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,

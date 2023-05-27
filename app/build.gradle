@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.sample.shoppingmall'
-    compileSdk compile_sdk_version
+    compileSdk SdkVersions.compileSdkVersion
 
     defaultConfig {
         applicationId "com.sample.shoppingmall"
-        minSdk min_sdk_version
-        targetSdk target_sdk_version
+        minSdk SdkVersions.minSdkVersion
+        targetSdk SdkVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -29,11 +29,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility java_version
-        targetCompatibility java_version
+        sourceCompatibility JavaVersions.javaVersion
+        targetCompatibility JavaVersions.jvmTargetVersion
     }
     kotlinOptions {
-        jvmTarget = jvm_target_version
+        jvmTarget = JavaVersions.jvmTargetVersion
     }
     buildFeatures {
         compose true

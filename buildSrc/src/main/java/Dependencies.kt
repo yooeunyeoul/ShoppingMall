@@ -1,3 +1,5 @@
+import org.gradle.api.JavaVersion
+
 object Versions {
     const val core = "1.8.0"
     const val lifecycle = "2.6.1"
@@ -27,6 +29,17 @@ object Versions {
     const val appCompat = "1.6.1"
 }
 
+object SdkVersions {
+    const val compileSdkVersion = 33
+    const val minSdkVersion = 24
+    const val targetSdkVersion = 33
+}
+
+object JavaVersions {
+    val javaVersion = JavaVersion.VERSION_17
+    const val jvmTargetVersion = "17"
+}
+
 
 object Deps {
     const val core = "androidx.core:core-ktx:${Versions.core}"
@@ -48,6 +61,7 @@ object Deps {
     const val hiltAndroid = "com.google.dagger:hilt-android:${Versions.hiltAndroid}"
     const val hiltCompiler = "com.google.dagger:hilt-compiler:${Versions.hiltAndroid}"
     const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"
+    const val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:${Versions.hiltAndroid}"
 
     const val accompanistPager = "com.google.accompanist:accompanist-pager:${Versions.accompanistPager}"
     const val accompanistPagerIndicator = "com.google.accompanist:accompanist-pager-indicators:${Versions.accompanistPagerIndicator}"
