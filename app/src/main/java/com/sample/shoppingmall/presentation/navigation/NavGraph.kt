@@ -18,5 +18,6 @@ fun NavGraph(navController: NavHostController, modifier: Modifier) {
         composable(route = Screen.HomeScreen.route) {
             HomeScreen()
         }
+
     }
 }
