@@ -9,7 +9,7 @@ import com.sample.domain.model.Feed
 fun FeedListLazyColumn(feedItems: LazyPagingItems<Feed>) {
     LazyColumn(
     ) {
-        items(feedItems.itemCount) { index ->
+        items(feedItems.itemCount, key = {index -> feedItems[index]?.feedNo?:0  }) { index ->
             feedItems[index]?.let { feedItem -> FeedItem(feed = feedItem) }
         }
     }

@@ -14,7 +14,7 @@ interface BannerDao {
     @Query("DELETE FROM banner_entity")
     suspend fun clearAll()
 
-    @Query("SELECT * FROM banner_entity")
+    @Query("SELECT * FROM banner_entity ORDER BY bannerNo DESC ")
     fun getBannerList(): Flow<List<BannerEntity>>
 
 }

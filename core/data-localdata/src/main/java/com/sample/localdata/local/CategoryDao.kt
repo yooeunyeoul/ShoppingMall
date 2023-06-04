@@ -12,7 +12,7 @@ interface CategoryDao {
     @Upsert
     suspend fun upsertAll(images: List<CategoryEntity>)
 
-    @Query("SELECT * FROM category_entity WHERE categoryType =:categoryType")
+    @Query("SELECT * FROM category_entity WHERE categoryType =:categoryType ORDER BY itemNo DESC")
     fun pagingSource(categoryType: CategoryType): PagingSource<Int, CategoryEntity>
 
     @Query("SELECT * FROM category_entity WHERE categoryType =:categoryType")

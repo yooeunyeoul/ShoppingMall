@@ -12,7 +12,7 @@ interface FeedDao {
     @Upsert
     suspend fun upsertAll(images: List<FeedEntity>)
 
-    @Query("SELECT * FROM feed_entity")
+    @Query("SELECT * FROM feed_entity ORDER BY feedNo DESC")
     fun pagingSource(): PagingSource<Int, FeedEntity>
 
     @Query("DELETE FROM feed_entity")

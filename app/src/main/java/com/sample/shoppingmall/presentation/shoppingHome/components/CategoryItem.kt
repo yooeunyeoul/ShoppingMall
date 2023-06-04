@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sample.common_utils.utils.CategoryType
 import com.sample.common_utils.utils.NumberComma
 import com.sample.domain.model.Category
 import com.sample.domain.model.SaleInfo
@@ -34,7 +35,7 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
     ) {
 
         CrossFadeImage(
-            modifier = Modifier.height(170.dp),
+            modifier = Modifier.height(260.dp),
             contentScale = ContentScale.Crop,
             url = category.imageUrl
         )
@@ -113,6 +114,11 @@ fun CategoryItem(category: Category, onItemClick: (Category) -> Unit) {
                     fontSize = dpToSp(dp = 12.dp)
                 )
             }
+            Text(
+                text = category.categoryType.name,
+                color = Color.Black,
+                fontSize = dpToSp(dp = 12.dp)
+            )
         }
 
 
@@ -138,7 +144,8 @@ fun PreviewCategoryItem() {
                 consumerPrice = 2000,
                 totalSaleRate = 200,
                 totalSellPrice = 20000
-            )
+            ),
+            categoryType = CategoryType.HOME
         )
     ) {}
 }

@@ -35,7 +35,8 @@ fun CategoryEntity.toCategory(): Category {
             consumerPrice = consumerPrice,
             totalSellPrice = totalSellPrice,
             totalSaleRate = totalSaleRate
-        )
+        ),
+        categoryType = categoryType
     )
 }
 

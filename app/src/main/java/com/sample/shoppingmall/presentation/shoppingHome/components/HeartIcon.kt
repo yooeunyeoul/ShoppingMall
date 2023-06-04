@@ -9,6 +9,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.sample.common_utils.utils.CategoryType
 import com.sample.domain.model.Category
 import com.sample.shoppingmall.R
 
@@ -36,5 +37,7 @@ fun HeartIcon(
 @Preview
 @Composable
 fun PreviewHeartIcon() {
-    HeartIcon(category = Category(isFavorite = true), onItemClick = {})
+    HeartIcon(
+        category = Category(isFavorite = true, categoryType = CategoryType.HOME, itemNo = 0),
+        onItemClick = {})
 }
