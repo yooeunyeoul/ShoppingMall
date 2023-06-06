@@ -54,6 +54,7 @@ dependencies {
     implementation project(path: ':core:data')
     implementation project(path: ':core:data-network')
     implementation project(path: ':core:data-paging')
+    implementation project(path: ':core:ui')
     implementation project(path: ':common:common_utils')
 
     implementation Deps.core

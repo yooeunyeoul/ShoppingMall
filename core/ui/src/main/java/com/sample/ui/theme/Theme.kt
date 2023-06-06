@@ -1,4 +1,4 @@
-package com.sample.shoppingmall.ui.theme
+package com.sample.ui.theme
 
 import android.app.Activity
 import android.os.Build
@@ -13,6 +13,12 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.sample.shoppingmall.ui.theme.Pink40
+import com.sample.shoppingmall.ui.theme.Pink80
+import com.sample.shoppingmall.ui.theme.Purple40
+import com.sample.shoppingmall.ui.theme.Purple80
+import com.sample.shoppingmall.ui.theme.PurpleGrey40
+import com.sample.shoppingmall.ui.theme.PurpleGrey80
 
 private val DarkColorScheme = darkColorScheme(
     primary = Purple80,
@@ -53,7 +59,7 @@ fun ShoppingMallTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,
+        typography =Typography ,
         content = content
     )
 }
