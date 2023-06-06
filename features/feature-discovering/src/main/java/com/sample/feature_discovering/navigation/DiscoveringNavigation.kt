@@ -5,10 +5,10 @@ import androidx.navigation.compose.composable
 
 const val discoveringRoute = "discover_route"
 
-fun NavGraphBuilder.DiscoveringScreen(
+fun NavGraphBuilder.discoveringScreen(
     onBackClick:() -> Unit,
 ) {
     composable(route = discoveringRoute) {
-
+        DiscoveringRoute(onBackClick = onBackClick)
     }
 }

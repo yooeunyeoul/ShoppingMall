@@ -56,6 +56,7 @@ dependencies {
     implementation project(path: ':core:data-paging')
     implementation project(path: ':core:ui')
     implementation project(path: ':common:common_utils')
+    implementation project(path: ':features:feature-discovering')
 
     implementation Deps.core
     implementation Deps.activity_compose
