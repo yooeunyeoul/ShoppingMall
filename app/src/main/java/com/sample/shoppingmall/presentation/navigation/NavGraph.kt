@@ -5,7 +5,6 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.sample.feature_discovering.navigation.discoveringRoute
 import com.sample.feature_discovering.navigation.discoveringScreen
 import com.sample.shoppingmall.presentation.shoppingHome.HomeScreen
 
@@ -13,7 +12,7 @@ import com.sample.shoppingmall.presentation.shoppingHome.HomeScreen
 fun NavGraph(navController: NavHostController, modifier: Modifier) {
     NavHost(
         navController = navController,
-        startDestination = discoveringRoute,
+        startDestination = Screen.HomeScreen.route,
         modifier = modifier
     ) {
 
